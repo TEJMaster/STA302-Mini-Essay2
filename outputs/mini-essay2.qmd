@@ -20,7 +20,6 @@ For this project, the main dataset used is named "subway_delay_data_2023.csv" so
 ```{r include=FALSE, message=FALSE}
 ## Read the saved ttc data
 clean_subway_delay_data <- read_csv("../inputs/data/cleaned_subway_delay_data_2023.csv")
-
 ```
 
 ## Initial Observation from TTC Subway Delay Data
