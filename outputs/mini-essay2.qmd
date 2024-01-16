@@ -1,18 +1,12 @@
 ---
 title: "Analysis on TTC Subway Delay Data 2023"
 format: pdf
-thanks: "Code and data are available at: https://github.com/TEJMaster/STA302-Mini-Essay2"
+thanks: "Code and data are available at: https://github.com/TEJMaster/TTC-Subway-Delay-Analysis-2023"
 author: "Terry Tu"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
-## Install library
-install.packages("opendatatoronto")
-install.packages("tidyverse")
-install.packages("ggplot2")
-install.packages("dplyr")
-
 ## Import library
 library(ggplot2)
 library(dplyr)
@@ -23,24 +17,10 @@ library(opendatatoronto)
 
 For this project, the main dataset used is named "subway_delay_data_2023.csv" sourced from "opendatatoronto". The focus of this analysis is on finding patterns in the Toronto Transit Commission's (TTC) subway delays. Toronto residents can use this study to optimize their time management when traveling via the TTC subway system. The data cleaning is been done by removing all lines with 'na' for their Line column.
 
-```{r echo=FALSE}
-## Read and save the ttc data
-ttc_packages <- search_packages("ttc")
-subway_delay_data <- list_package_resources("996cfe8d-fb35-40ce-b569-698d51fc683b") |> 
-  filter(name == "ttc-subway-delay-data-2023") |>
-  get_resource()
+```{r include=FALSE, message=FALSE}
+## Read the saved ttc data
+clean_subway_delay_data <- read_csv("../inputs/data/cleaned_subway_delay_data_2023.csv")
 
-write_csv(
-  x=subway_delay_data,
-  file="../inputs/data/subway_delay_data_2023.csv"
-)
-
-clean_subway_delay_data <- subway_delay_data %>%
-  filter(!is.na(Line))
-
-# Save the cleaned data to a CSV file
-write_csv(x=clean_subway_delay_data, 
-          file="../inputs/data/cleaned_subway_delay_data_2023.csv")
 ```
 
 ## Initial Observation from TTC Subway Delay Data
