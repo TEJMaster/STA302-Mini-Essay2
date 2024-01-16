@@ -1,14 +1,30 @@
-```{r}
-## Import library
+---
+title: "Analysis on TTC Subway Delay Data 2023"
+format: pdf
+thanks: "Code and data are available at: https://github.com/TEJMaster/STA302-Mini-Essay2"
+author: "Terry Tu"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+---
+
+```{r setup, include=FALSE, message=FALSE}
+## Install library
 install.packages("opendatatoronto")
 install.packages("tidyverse")
-```
-```{r}
+install.packages("ggplot2")
+install.packages("dplyr")
+
+## Import library
+library(ggplot2)
+library(dplyr)
 library(tidyverse)
 library(opendatatoronto)
 ```
+## Background
 
-```{r}
+For this project, the main dataset used is named "subway_delay_data_2023.csv" sourced from "opendatatoronto". The focus of this analysis is on finding patterns in the Toronto Transit Commission's (TTC) subway delays. Toronto residents can use this study to optimize their time management when traveling via the TTC subway system. The data cleaning is been done by removing all lines with 'na' for their Line column.
+
+```{r echo=FALSE}
+## Read and save the ttc data
 ttc_packages <- search_packages("ttc")
 subway_delay_data <- list_package_resources("996cfe8d-fb35-40ce-b569-698d51fc683b") |> 
   filter(name == "ttc-subway-delay-data-2023") |>
@@ -16,7 +32,101 @@ subway_delay_data <- list_package_resources("996cfe8d-fb35-40ce-b569-698d51fc683
 
 write_csv(
   x=subway_delay_data,
-  file="subway_delay_data_2023.csv"
+  file="../inputs/data/subway_delay_data_2023.csv"
 )
+
+clean_subway_delay_data <- subway_delay_data %>%
+  filter(!is.na(Line))
+
+# Save the cleaned data to a CSV file
+write_csv(x=clean_subway_delay_data, 
+          file="../inputs/data/cleaned_subway_delay_data_2023.csv")
 ```
 
+## Initial Observation from TTC Subway Delay Data
+The table presented herein contains the first three rows from the "subway_delay_data_2023.csv" dataset, retrieved from "opendatatoronto". This snapshot reveals critical attributes including the date, time, day of the week, station name, specific delay codes, the recorded duration of delays (minimum delay), the shortest interval between consecutive trains (minimum gap), the designated direction (bound), the subway line affected, and the vehicle number. In our next step we will use this data to analyze the pattern of the current delays and help Toronto resident to plan for potential delays.
+```{r echo=FALSE}
+knitr::kable(head(clean_subway_delay_data, 3))
+```
+
+## Analysis on subway delay based on day of the week 
+
+```{r echo=FALSE}
+# Order by day
+clean_subway_delay_data$Day <- factor(clean_subway_delay_data$Day, 
+                                levels = c("Monday", "Tuesday", "Wednesday", 
+                                           "Thursday", "Friday", "Saturday", "Sunday"),
+                                ordered = TRUE)
+
+# Group and summarize the data to get total delays
+total_delay_by_day <- clean_subway_delay_data %>%
+  group_by(Day) %>%
+  summarize(Total_Delay = sum(`Min Delay`, na.rm = TRUE)) 
+
+# Plot the data
+ggplot(total_delay_by_day, aes(x = Day, y = Total_Delay, fill = Day)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total TTC Subway Delays by Day of the Week (minutes)",
+       x = "Day of the Week",
+       y = "Total Delay (minutes)",
+       fill = "Day of the Week") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+From the plot for total minutes delay we can clearly see that weekdays experience significantly longer cumulative delay duration as compared to weekends. Notably, Monday stands out with the highest aggregate minutes of delay, suggesting a peak in delay occurrences at the start of the workweek. Conversely, Saturday is the day with the least total delay time, indicating a smoother operational flow during weekend services.
+
+```{r echo=FALSE}
+clean_subway_delay_data$Day <- factor(clean_subway_delay_data$Day, 
+                                levels = c("Monday", "Tuesday", "Wednesday", 
+                                           "Thursday", "Friday", "Saturday", "Sunday"),
+                                ordered = TRUE)
+
+# Group and summarize the data to get the frequency of delays
+frequency_of_delays <- clean_subway_delay_data %>%
+  filter(`Min Delay` > 0) %>% 
+  count(Day)  # Count the number of delay occurrences for each day
+
+# Plot the data
+ggplot(frequency_of_delays, aes(x = Day, y = n, fill = Day)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Frequency of TTC Subway Delays by Day of the Week",
+       x = "Day of the Week",
+       y = "Number of Delays",
+       fill = "Day of the Week") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Furthermore, the frequency analysis of delays corroborates the trend observed in total delay duration. Weekdays generally have a higher incidence of delays, with Friday leading in the number of reported delays. On the other hand, during Sunday the plot shows the least frequency of delays, aligning with the expected reduced demand for travel on the last day of the weekend.
+
+These insights could serve as a cornerstone for targeted strategies aimed at improving service efficiency, such as enhanced resource allocation during identified peak times. Commuters might also benefit from planning their travel schedules around these insights to avoid potential delays.
+
+## Analysis on subway delay based subway line
+
+```{r,fig.width=9, fig.height=8, echo=FALSE}
+frequency_of_delays_by_line <- clean_subway_delay_data %>%
+  group_by(Line) %>%
+  summarize(Delay_Frequency = n()) # Count the number of delay occurrences for each line
+
+
+ggplot(frequency_of_delays_by_line, aes(x = Line, y = Delay_Frequency, fill = Line)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Frequency of TTC Subway Delays by Line",
+       x = "Subway Line",
+       y = "Frequency of Delays",
+       fill = "Subway Line") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, margin = margin(b = 10)), # Increase bottom margin
+        axis.title.x = element_text(margin = margin(t = 20, b = 20)), # Adjust title margin if needed
+        legend.position = "bottom") + # Move legend to the bottom
+  guides(fill=guide_legend(title=NULL))
+
+```
+The visualized data indicates a huge contrast in delay frequencies across different subway lines for the year 2023. Notably, certain lines such as '999' and 'BD Line 2' registered no delays, suggesting efficient operation or a lack of reporting. In contrast, other lines like 'SHP' and 'SRT' experienced a minimal number of delays, which could indicate isolated incidents or effective management of potential disruptions.
+
+However, a significant concern is observed with the 'BD' (Bloor-Danforth) and 'YU' (Yonge-University) lines, which exhibited a substantially higher frequency of delays. This pattern highlights a critical area for operational focus. As a TTC subway manager, this insight necessitates an in-depth analysis of the causes behind the delays on these lines. Moreover, people taking these two lines are highly recommended to plan with extra time allowance in anticipation of the higher frequency of delays encountered on these routes. 
+
+## Conclusion
+
+Based on the data from "ttc-subway-delay-data-2023", I have provided 2 suggestions. For commuters, especially those frequenting the more affected lines, and on weekdays it is prudent to anticipate potential delays and allocate additional time for travel. On the management side, the insights from this report should catalyze a thorough review of operational procedures and the implementation of strategic improvements to address the root causes of frequent delays.
+
+Ultimately, the goal is to achieve a level of service that ensures efficiency, satisfaction, and the continued trust of the commuting public in the TTC subway system. This analysis lays the groundwork for the continuous improvement of Toronto's subway operations and the enhancement of the city's public transportation ecosystem.
