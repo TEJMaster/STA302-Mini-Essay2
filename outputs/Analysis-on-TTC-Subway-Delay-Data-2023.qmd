@@ -13,22 +13,28 @@ library(dplyr)
 library(tidyverse)
 library(opendatatoronto)
 ```
+## Abstract
+
+This study analyzes the 2023 TTC subway delay data from OpenDataToronto to uncover delay patterns across different days and lines. Key findings reveal significant variances in delay durations and frequencies, offering practical insights for commuters and transit authorities. The analysis highlights the need for targeted strategies to improve subway efficiency, particularly on the most affected lines.
+
+
 ## Introduction
 
-For this project, the main dataset used is named "subway_delay_data_2023.csv" sourced from "opendatatoronto". The focus of this analysis is on finding patterns in the Toronto Transit Commission's (TTC) subway delays. Our findings reveal critical variances in delay durations and frequencies across different days of the week and various subway lines. Toronto residents can use this study to optimize their time management when traveling via the TTC subway system. 
+This project delves into the "subway_delay_data_2023.csv" dataset from OpenDataToronto, focusing on the Toronto Transit Commission's (TTC) subway delays. Through this analysis, we aim to discern patterns and implications of these delays, providing valuable information for Toronto's commuters and transit planners.
 
 ```{r include=FALSE, message=FALSE}
 ## Read the saved ttc data
 clean_subway_delay_data <- read_csv("../inputs/data/cleaned_subway_delay_data_2023.csv")
 ```
 
-## Initial Observation from TTC Subway Delay Data
-The table presented herein contains the first three rows from the "subway_delay_data_2023.csv" dataset, retrieved from "opendatatoronto". This snapshot reveals critical attributes including the date, time, day of the week, station name, specific delay codes, the recorded duration of delays (minimum delay), the shortest interval between consecutive trains (minimum gap), the designated direction (bound), the subway line affected, and the vehicle number. In our next step we will use this data to analyze the pattern of the current delays and help Toronto resident to plan for potential delays.
+## Section 1: Initial Observation from TTC Subway Delay Data
+
+The table below contains the first four rows from the "subway_delay_data_2023.csv" dataset, retrieved from "opendatatoronto". The table contains useful attributes including the date, time, day of the week, station name, specific delay codes, the recorded duration of delays (minimum delay), the shortest interval between consecutive trains (minimum gap), the designated direction (bound), the subway line affected, and the vehicle number. In our next step we will use this data to analyze the pattern of the current delays and help Toronto resident to plan for potential delays.
 ```{r echo=FALSE}
-knitr::kable(head(clean_subway_delay_data, 3))
+knitr::kable(head(clean_subway_delay_data, 4))
 ```
 
-## Analysis on subway delay based on day of the week 
+## Section 2: Analysis on subway delay based on day of the week 
 
 ```{r echo=FALSE}
 # Order by day
@@ -79,7 +85,7 @@ Furthermore, the frequency analysis of delays corroborates the trend observed in
 
 These insights could serve as a cornerstone for targeted strategies aimed at improving service efficiency, such as enhanced resource allocation during identified peak times. Commuters might also benefit from planning their travel schedules around these insights to avoid potential delays.
 
-## Analysis on subway delay based subway line
+## Section 3: Analysis on subway delay based subway line
 
 ```{r,fig.width=9, fig.height=8, echo=FALSE}
 frequency_of_delays_by_line <- clean_subway_delay_data %>%
