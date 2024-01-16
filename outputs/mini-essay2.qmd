@@ -13,9 +13,9 @@ library(dplyr)
 library(tidyverse)
 library(opendatatoronto)
 ```
-## Background
+## Introduction
 
-For this project, the main dataset used is named "subway_delay_data_2023.csv" sourced from "opendatatoronto". The focus of this analysis is on finding patterns in the Toronto Transit Commission's (TTC) subway delays. Toronto residents can use this study to optimize their time management when traveling via the TTC subway system. The data cleaning is been done by removing all lines with 'na' for their Line column.
+For this project, the main dataset used is named "subway_delay_data_2023.csv" sourced from "opendatatoronto". The focus of this analysis is on finding patterns in the Toronto Transit Commission's (TTC) subway delays. Our findings reveal critical variances in delay durations and frequencies across different days of the week and various subway lines. Toronto residents can use this study to optimize their time management when traveling via the TTC subway system. 
 
 ```{r include=FALSE, message=FALSE}
 ## Read the saved ttc data
@@ -109,3 +109,9 @@ However, a significant concern is observed with the 'BD' (Bloor-Danforth) and 'Y
 Based on the data from "ttc-subway-delay-data-2023", I have provided 2 suggestions. For commuters, especially those frequenting the more affected lines, and on weekdays it is prudent to anticipate potential delays and allocate additional time for travel. On the management side, the insights from this report should catalyze a thorough review of operational procedures and the implementation of strategic improvements to address the root causes of frequent delays.
 
 Ultimately, the goal is to achieve a level of service that ensures efficiency, satisfaction, and the continued trust of the commuting public in the TTC subway system. This analysis lays the groundwork for the continuous improvement of Toronto's subway operations and the enhancement of the city's public transportation ecosystem.
+
+# Appendix
+
+## Data Cleaning Process
+
+In preparing the dataset for analysis, the data is been cleaned by removing all lines with 'na' for their 'Line' column.
