@@ -9,7 +9,3 @@ write_csv(
   x=subway_delay_data,
   file="./inputs/data/subway_delay_data_2023.csv"
 )
-clean_subway_delay_data <- subway_delay_data %>%
-  filter(!is.na(Line))
-
-

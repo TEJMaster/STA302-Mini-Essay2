@@ -1,21 +1,25 @@
 ---
-title: "Analysis on TTC Subway Delay Data 2023"
-format: pdf
-thanks: "Code and data are available at: https://github.com/TEJMaster/TTC-Subway-Delay-Analysis-2023"
+title: "A Modest Proposal for Developing Better Experience with TTC Subway"
+title-block-banner: true
+#subtitle: "TBD"
+abstract: "This study analyzes the 2023 TTC subway delay data from OpenDataToronto to uncover delay patterns across different days and lines. Key findings reveal significant variances in delay durations and frequencies, offering practical insights for commuters and transit authorities. The analysis highlights the need for targeted strategies to improve subway efficiency, particularly on the most affected lines."
+thanks: "Code and data supporting this analysis is available at: https://github.com/TEJMaster/TTC-Subway-Delay-Analysis-2023.git"
 author: "Terry Tu"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
+date: today
+date-format: long
+format: pdf
+editor: visual
+toc: true
+number-sections: true
+bibliography: references.bib
+link-citations: true
 ---
-
 ```{r setup, include=FALSE, message=FALSE}
 ## Import library
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
 ```
-## Abstract
-
-This study analyzes the 2023 TTC subway delay data from OpenDataToronto to uncover delay patterns across different days and lines. Key findings reveal significant variances in delay durations and frequencies, offering practical insights for commuters and transit authorities. The analysis highlights the need for targeted strategies to improve subway efficiency, particularly on the most affected lines.
-
 
 ## Introduction
 
@@ -26,14 +30,19 @@ This project delves into the "subway_delay_data_2023.csv" dataset from OpenDataT
 clean_subway_delay_data <- read_csv("../inputs/data/cleaned_subway_delay_data_2023.csv")
 ```
 
-## Section 1: Initial Observation from TTC Subway Delay Data
+## Data
+
+Data used in this paper are retrieved from Open Data Toronto Portal through the library `opendatatoronto` [@rOpenDataToronto].
+
+### Initial Observation from TTC Subway Delay Data
 
 The table below contains the first four rows from the "subway_delay_data_2023.csv" dataset, retrieved from "opendatatoronto". The table contains useful attributes including the date, time, day of the week, station name, specific delay codes, the recorded duration of delays (minimum delay), the shortest interval between consecutive trains (minimum gap), the designated direction (bound), the subway line affected, and the vehicle number. In our next step we will use this data to analyze the pattern of the current delays and help Toronto resident to plan for potential delays.
 ```{r echo=FALSE}
 knitr::kable(head(clean_subway_delay_data, 4))
 ```
+## Results
 
-## Section 2: Analysis on subway delay based on day of the week 
+### Analysis on subway delay based on day of the week 
 
 ```{r echo=FALSE}
 # Order by day
@@ -84,7 +93,7 @@ Furthermore, the frequency analysis of delays corroborates the trend observed in
 
 These insights could serve as a cornerstone for targeted strategies aimed at improving service efficiency, such as enhanced resource allocation during identified peak times. Commuters might also benefit from planning their travel schedules around these insights to avoid potential delays.
 
-## Section 3: Analysis on subway delay based subway line
+### Analysis on subway delay based subway line
 
 ```{r,fig.width=9, fig.height=8, echo=FALSE}
 frequency_of_delays_by_line <- clean_subway_delay_data %>%
@@ -115,8 +124,10 @@ Based on the data from "ttc-subway-delay-data-2023", I have provided 2 suggestio
 
 Ultimately, the goal is to achieve a level of service that ensures efficiency, satisfaction, and the continued trust of the commuting public in the TTC subway system. This analysis lays the groundwork for the continuous improvement of Toronto's subway operations and the enhancement of the city's public transportation ecosystem.
 
-# Appendix
+## Appendix
 
-## Data Cleaning Process
+### Data Cleaning Process
 
 In preparing the dataset for analysis, the data is been cleaned by removing all lines with 'na' for their 'Line' column.
+
+### Reference

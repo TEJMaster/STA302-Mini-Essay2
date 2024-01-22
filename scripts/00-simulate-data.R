@@ -28,6 +28,11 @@ subway_delays <- data.frame(SubwayID = subway_ids,
                             Day = days,
                             Time = format(times, format = "%H:%M"),
                             DelayInMinutes = delay_durations)
+write_csv(
+  x=subway_delays,
+  file="./inputs/data/simulate_subway_data.csv"
+)
+
 # View the first few rows of the data set
 head(subway_delays)
 
