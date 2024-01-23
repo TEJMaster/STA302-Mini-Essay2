@@ -1,6 +1,6 @@
 # starter_folder
 
-This repository contains the project "TTC Subway Delay Analysis 2023," focusing on exploring and analyzing the subway delay data provided by OpenDataToronto. The aim is to identify patterns in the Toronto Transit Commission's (TTC) subway delays and offer insights that can help commuters and transit authorities in planning and managing subway travel more effectively.
+This repository contains the project "TTC Subway Delay Analysis 2023," focusing on exploring and analyzing the subway delay data provided by OpenDataToronto. The aim is to identify patterns in the Toronto Transit Commission's (TTC) subway delays and offer insights that can help commuters and transit authorities in planning and managing subway travel more effectively. In the creation of this document, OpenAI's ChatGPT was used to enhance the document, as well as assit in genrating the plots.
 
 ## Repository Structure
 
