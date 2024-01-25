@@ -35,7 +35,7 @@ Here is a brief summary of steps I used to conduct this study. First, I download
 
 ```{r include=FALSE, message=FALSE}
 ## Read the saved ttc data
-clean_subway_delay_data <- read_csv("../inputs/data/cleaned_subway_delay_data_2023.csv")
+clean_subway_delay_data <- read_csv("../data/cleaned_subway_delay_data_2023.csv")
 ```
 
 ## Data
@@ -211,7 +211,7 @@ Figure 5 below shows the map of subway lines in Toronto from TTC [@TTC].
 
 \newpage
 
-![TTC Subway Map](../inputs/misc/Toronto-Subway-Map.png){width=80%}
+![TTC Subway Map](../../inputs/misc/Toronto-Subway-Map.png){width=80%}
 
 
 ### Data Simulation 
@@ -230,7 +230,7 @@ For details about download the data set from OpenDataToronto, please check the s
 
 ### Data Cleaning Process
 
-In preparing the data set for analysis, the data is been cleaned by removing all rows with 'na' for their 'Line' column, and their 'Line' column not in ["BD", "YU", "SHP", "SRT"] (the 4 subway lines in Toronto). This step ensures the accuracy and reliability of the subsequent analysis by excluding incomplete or irrelevant data points. For a detailed view of the cleaning procedure and the code used, please refer to the script located at `Script/02_cleanup_data.R` in the repository.
+In preparing the data set for analysis, the data is been cleaned by removing all rows with 'na' for their 'Line' column, and their 'Line' column not in ["BD", "YU", "SHP", "SRT"] (the 4 subway lines in Toronto). This step ensures the accuracy and reliability of the subsequent analysis by excluding incomplete or irrelevant data points. For a detailed view of the cleaning procedure and the code used, please refer to the script located at `Script/02_cleanup_data.R` in the repository. The cleaned data set is saved to `/output/data/`
 
 ### Data Set Validity Testing
 
@@ -241,5 +241,7 @@ Once the data set has been cleaned, its integrity can be validated by executing 
 3. Line Validation: Ensures that the 'Line' column includes only the subway lines in Toronto: "BD" (Bloor-Danforth), "YU" (Yonge-University), "SHP" (Sheppard), and "SRT" (Scarborough RT).
 
 After running this script, it's expected that the variables `test_year_2023`, `test_min_delay_non_negative`, and `test_line_inclusion` should all return TRUE, indicating that the data set meets the specified criteria for each test. If any of these checks fail, it would suggest discrepancies within the data set that may require further investigation or correction.
+
+\newpage
 
 ### Reference

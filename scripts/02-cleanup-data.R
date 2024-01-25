@@ -11,4 +11,4 @@ clean_subway_delay_data <- subway_delay_data %>%
   filter(Line %in% c("BD", "YU", "SHP", "SRT"))
 
 # Save the cleaned data to a new CSV file
-write_csv(x = clean_subway_delay_data, file = "inputs/data/cleaned_subway_delay_data_2023.csv")
+write_csv(x = clean_subway_delay_data, file = "outputs/data/cleaned_subway_delay_data_2023.csv")
