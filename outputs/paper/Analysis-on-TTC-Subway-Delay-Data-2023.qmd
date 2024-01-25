@@ -19,6 +19,8 @@ link-citations: true
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
+library(here)
+library(readr)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -30,17 +32,22 @@ Public transportation, like the TTC (Toronto Transit Commission), is essential f
 
 This project digs into the TTC subway delay data for 2023 from OpenDataToronto using a data set called "subway_delay_data_2023.csv". We want to find patterns in the delays to help understand and fix the problems. This is especially important as more and more people are living in Toronto, and they all need a reliable subway system. Even with the issues, a good number of users, 77%, still think the TTC is dependable, which shows that the system has a strong base to improve from [@Vuong_2019].
 
-Here is a brief summary of steps I used to conduct this study. First, I downloaded the data from OpenDataToronto [@rOpenDataToronto]. Then, I cleaned up the data to make sure everything was accurate and ready for analysis. After the data cleaning, I used R [@r], which is a tool for doing statistics, to analyze the data. I looked at which subway lines have the most delays, and I checked to see if there were certain days or times when delays happened more often. This is useful to understand the patterns and figure out where the TTC might need to make some changes.
+Here is a brief summary of findings from the TTC subway delay dataset: 
+**1.** Delays are more common on weekdays compared to weekends.
+**2.** Subway Lines 1 and 2 generally have more delays than Lines 3 and 4. 
+**3.** Delays tend to happen more often during busy hours, and delay in evening rush hours is more frequent compared to morning rush hours.
+
+This study is not just an investigation; it's a crucial step towards improving the TTC subway's reliability and efficiency, meeting the needs of Toronto's ever-expanding community.
 
 
 ```{r include=FALSE, message=FALSE}
 ## Read the saved ttc data
-clean_subway_delay_data <- read_csv("../data/cleaned_subway_delay_data_2023.csv")
+clean_subway_delay_data <- read_csv(here("outputs", "data", "cleaned_subway_delay_data_2023.csv"))
 ```
 
 ## Data
 
-Data for this study were meticulously curated from the Open Data Toronto Portal via the opendatatoronto package [@rOpenDataToronto]. The primary dataset utilized is the TTC subway delay data for 2023. This dataset offers a granular view into each recorded delay within the TTC subway system, encapsulating critical attributes such as the date, time, duration, and affected subway line.
+Data for this study were obtained from the Open Data Toronto Portal via the opendatatoronto package [@rOpenDataToronto]. The primary dataset utilized is the TTC subway delay data for 2023. This dataset offers a granular view into each recorded delay within the TTC subway system, encapsulating critical attributes such as the date, time, duration, and affected subway line.
 
 ### TTC Subway Delay Data
 
@@ -65,7 +72,7 @@ Table 1 presents a snippet of the cleaned dataset, showcasing the first few rows
 
 ## Data Analysis & Results
 
-The data analysis was performed using R [@r], a powerful open-source statistical programming language. Key packages from the tidyverse collection [@rTidyverse] were employed to streamline data manipulation, visualization, and analysis processes. These packages include ggplot2 [@rGgplot2] for creating advanced graphics, dplyr [@rDplyr] for data manipulation, readr [@rReadr] for its robust data reading functionalities, lubridate [@lubridate] for handling date-time data, and knitr [@rKnitr] for dynamic report generation. 
+The data analysis was performed using R [@r], a powerful open-source statistical programming language. Key packages from the tidyverse collection [@rTidyverse] were employed to streamline data manipulation, visualization, and analysis processes. These packages include ggplot2 [@rGgplot2] for creating advanced graphics, dplyr [@rDplyr] for data manipulation, readr [@rReadr] for its robust data reading functionalities, lubridate [@lubridate] for handling date-time data, here [@R-here] is used to avoid file path issue, and knitr [@rKnitr] for dynamic report generation. 
 
 ### Analysis on subway delay based on day of the week 
 
@@ -207,12 +214,13 @@ Please check the `/input/misc/Plan-Sketch.pdf` for my sketch of my brainstorming
 
 ### TTC Subway Map
 
-Figure 5 below shows the map of subway lines in Toronto from TTC [@TTC].
+@fig-TTC-Subway-Map below shows the map of subway lines in Toronto from TTC [@TTC].
 
 \newpage
 
-![TTC Subway Map](../../inputs/misc/Toronto-Subway-Map.png){width=80%}
-
+```{r fig-TTC-Subway-Map, fig.cap="TTC Subway Map", out.width='80%', echo=FALSE}
+knitr::include_graphics(here("inputs", "misc", "Toronto-Subway-Map.png"))
+```
 
 ### Data Simulation 
 

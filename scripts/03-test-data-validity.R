@@ -1,9 +1,14 @@
+# install.packages("dplyr")
+# install.packages("readr")
+# install.packages("lubridate")
+# install.packages("here")
+
 library(readr)
 library(dplyr)
 library(lubridate)
 
 # Load the cleaned subway delay data
-file_path <- "inputs/data/cleaned_subway_delay_data_2023.csv"
+file_path <- here("outputs", "data", "cleaned_subway_delay_data_2023.csv")
 subway_delay_data <- read_csv(file_path)
 
 # Test 1: All Date columns are from year 2023

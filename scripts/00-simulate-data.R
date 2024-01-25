@@ -2,10 +2,12 @@
 # install.packages("lubridate")
 # install.packages("dplyr")
 # install.packages("ggplot2")
+# install.packages("here")
 
 library(lubridate)
 library(dplyr)
 library(ggplot2)
+library(here)
 
 # Parameters
 n <- 1000  # number of records
@@ -30,7 +32,7 @@ subway_delays <- data.frame(SubwayID = subway_ids,
                             Delay_Durations = delay_durations)
 write_csv(
   x=subway_delays,
-  file="./inputs/data/simulate_subway_data.csv"
+  file=here("inputs", "data", "simulate_subway_data.csv")
 )
 
 # View the first few rows of the data set
