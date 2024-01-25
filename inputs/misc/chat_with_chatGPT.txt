@@ -253,3 +253,45 @@ For a visual representation of the preliminary ideas and brainstorming conducted
 Terry: help me revise it: Please check the `/input/misc/Plan-Sketch.pdf` for my sketch of my brain storming. This document contains a rough sketch about the sample data set and an example of plot I can use for answer my research question using this data set.
 
 ChatGPT: For an insight into the conceptual framework and visual planning of this project, please review the sketch available at /input/misc/Plan-Sketch.pdf. This document presents a preliminary sketch that encapsulates the brainstorming process, including a representation of the sample dataset and illustrative examples of plots. These elements collectively aim to address the research questions posited by this study, offering a glimpse into the methodological approach and analytical direction pursued.
+
+Terry: Help me revise my appendix: ### Data Simulation 
+
+For details on the simulated data set creation, please check the script located at `Script/00-simulate-data_data.R`. This script generates a simulated data set consisting of 1000 entries, representing hypothetical subway delay instances for the year 2023. The data set is been saved to `\input\data\simulate_subway_data.csv`. The data set includes the following columns:
+
+- Date: The date of the delay, formatted as a date within the year 2023.
+- Day: The day of the week on which the delay occurred.
+- SubwayID: A unique identifier for the subway vehicle involved in the delay.
+- Time: The time of day when the delay took place, formatted as 'HH:MM'.
+- Delay_Durations: The length of the delay in minutes.
+
+### Download Data from OpenDataToronto
+
+For details about download the data set from OpenDataToronto, please check the script located at `Script/01_download_data.R`. This script retrieves the TTC Subway delay data for the year 2023 using the package called `opendatatoronto` [@rOpenDataToronto] and save to a file at `/inputs/data/subway_delay_data_2023.csv`.
+
+### Data Cleaning Process
+
+In preparing the data set for analysis, the data is been cleaned by removing all rows with 'na' for their 'Line' column, and their 'Line' column not in ["BD", "YU", "SHP", "SRT"] (the 4 subway lines in Toronto). This step ensures the accuracy and reliability of the subsequent analysis by excluding incomplete or irrelevant data points. For a detailed view of the cleaning procedure and the code used, please refer to the script located at `Script/02_cleanup_data.R` in the repository. The cleaned data set is saved to `/outputs/data/cleaned_subway_delay_data_2023.csv`
+
+### Data Set Validity Testing
+
+Once the data set has been cleaned, its integrity can be validated by executing the script located at scripts/03-test-data-validity.R. This script performs three crucial checks to ensure the data set's accuracy and consistency:
+
+1. Year Consistency: Verifies that all entries in the 'Date' column correspond to the year 2023.
+2. Minute Delay not Negative: Confirms that all values in the 'Min Delay' column are greater than or equal to zero, ensuring no negative delay times are recorded.
+3. Line Validation: Ensures that the 'Line' column includes only the subway lines in Toronto: "BD" (Bloor-Danforth), "YU" (Yonge-University), "SHP" (Sheppard), and "SRT" (Scarborough RT).
+
+After running this script, it's expected that the variables `test_year_2023`, `test_min_delay_non_negative`, and `test_line_inclusion` should all return TRUE, indicating that the data set meets the specified criteria for each test. If any of these checks fail, it would suggest discrepancies within the data set that may require further investigation or correction.
+
+ChatGPT: Data Simulation
+The simulated dataset, designed to mirror the structure of the actual TTC subway delay data, can be found at Script/00-simulate-data_data.R. This script meticulously generates a dataset of 1000 hypothetical delay instances, providing a sandbox environment for testing analytical methods. The dataset encompasses variables such as 'Date', 'Day', 'SubwayID', 'Time', and 'Delay_Durations', mimicking the real-world data structure.
+
+Download Data from OpenDataToronto
+The process and code for downloading the TTC Subway delay data for 2023 from OpenDataToronto are detailed in Script/01_download_data.R. This script demonstrates the use of the opendatatoronto package [@rOpenDataToronto] to efficiently fetch and store the data locally at /inputs/data/subway_delay_data_2023.csv, ensuring a seamless start to the data analysis workflow.
+
+Data Cleaning Process
+Data cleaning is a critical step in ensuring the accuracy and reliability of the analysis. The detailed procedure and the R script used for data cleaning are available in Script/02_cleanup_data.R. The script elucidates the steps taken to refine the dataset by filtering out incomplete records and focusing on relevant subway lines. The cleaned dataset is conveniently saved at /outputs/data/cleaned_subway_delay_data_2023.csv, ready for in-depth analysis.
+
+Data Set Validity Testing
+To affirm the integrity and consistency of the cleaned dataset, a series of validation tests are performed using the script scripts/03-test-data-validity.R. These tests include verifying the correctness of the 'Date' entries for the year 2023, ensuring non-negative values in the 'Min Delay' column, and validating the inclusion of only specified subway lines in the 'Line' column. Successful execution of this script, resulting in test_year_2023, test_min_delay_non_negative, and test_line_inclusion being TRUE, is a testament to the dataset's readiness for analysis.
+
+vbnet

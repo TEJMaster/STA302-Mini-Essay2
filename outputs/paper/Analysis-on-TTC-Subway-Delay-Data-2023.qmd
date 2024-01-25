@@ -15,6 +15,14 @@ link-citations: true
 ---
 
 ```{r setup, include=FALSE, message=FALSE}
+# Un-comment these lines for package missing
+# install.packages("lubridate")
+# install.packages("dplyr")
+# install.packages("ggplot2")
+# install.packages("here")
+# install.packages("readr")
+# install.packages("tidyverse")
+
 ## Import library
 library(ggplot2)
 library(dplyr)
@@ -56,13 +64,15 @@ This dataset, provided by the Toronto Transit Commission via the Open Data Toron
 ### Data Cleaning and Initial Observations
 The raw data was initially fetched and then subjected to a systematic cleaning process to ensure data integrity for analysis (Please refer to appendix for details). After-cleaning, an initial exploration of the data was conducted below, providing some insight about how the dataset is looked like.
 
-```{r echo=FALSE}
-knitr::kable(head(clean_subway_delay_data, 6), caption = "Sample of the Cleaned TTC Subway Delay Data")
-
+```{r table1, echo=FALSE}
+knitr::kable(head(clean_subway_delay_data, 6), 
+             caption = "Sample of the Cleaned TTC Subway Delay Data",
+             format = "markdown")
 ```
-Table 1 presents a snippet of the cleaned dataset, showcasing the first few rows after data cleaning. The table provides a glimpse into the structured format of the data, ready for in-depth analysis.
 
-### Discription for variable used in this study
+Table 1 displays the first 6 rows of the cleaned TTC subway delay data set.
+
+### Measurement and Variable Description
 
 - Date: The date on which the delay occurred, providing a chronological context to the incident.
 - Time: The exact time at which the delay was recorded, which is crucial for identifying peak delay periods throughout the day.
@@ -83,7 +93,7 @@ From @fig-subway_delay_day_freq the frequency analysis of delays corroborates th
 
 These insights could serve as a cornerstone for targeted strategies aimed at improving service efficiency, such as enhanced resource allocation during identified peak times. Commuters might also benefit from planning their travel schedules around these insights to avoid potential delays.
 
-```{r fig-subway_delay_day, echo=FALSE, fig.cap="Total minutes of subway delays categorized by days of the week", fig.lp='hold_position'}
+```{r fig-subway_delay_day, echo=FALSE, fig.cap="Total minutes of subway delays categorized by days of the week"}
 # Order by day
 clean_subway_delay_data$Day <- factor(clean_subway_delay_data$Day, 
                                 levels = c("Monday", "Tuesday", "Wednesday", 
@@ -200,21 +210,22 @@ The data illustrated in @fig-subway_delay_time_freq showcases the distribution o
 
 ## Conclusion
 
-Based on the comprehensive analysis of the 2023 TTC subway delay data, this report has led to two primary suggestions. For commuters, particularly those who regularly use the heavily impacted lines during peak weekday hours, it is advisable to plan for potential delays by allowing extra travel time. Extra time are highly recommended especially for people taking "line 1" and "line 2" since those 2 lines are more likely to get delays. Such foresight can mitigate the inconvenience caused by unexpected waiting times.
+The comprehensive analysis of the 2023 TTC subway delay data has yielded some actionable insights, leading to a set of recommendations aimed at enhancing the commuting experience.. For daily commuters, especially those frequenting the more delay-prone Lines 1 and 2 during peak hours, proactive planning is advisable. Allocating extra travel time can significantly mitigate the inconvenience caused by delays, ensuring a more predictable and stress-free journey.
 
-From an operational perspective, the data presented herein should prompt an extensive evaluation of current TTC practices. There is a clear opportunity for management to refine operational strategies, focusing on peak times that have been identified as hot-spots for delays (i.e. at 5 p.m. for line 1). Addressing the fundamental issues contributing to frequent delays could significantly enhance service reliability.
+On an operational level, the findings of this study underscore the necessity for the TTC management to undertake a comprehensive review of current practices, particularly focusing on the identified peak times and lines where delays are most prevalent. A targeted approach to understanding and rectifying the root causes of these delays can not only improve service reliability but also elevate public perception and trust in the TTC subway system.
 
-The overarching aim is to elevate the level of service to one that not only meets the expectations for punctuality and efficiency but also fosters confidence among Toronto's commuters. By harnessing the insights from this analysis, there is potential to drive progressive changes within the TTC's subway operations, ultimately benefiting the broader public transportation network in Toronto. This study, therefore, not only sheds light on existing patterns of delay but also serves as a catalyst for ongoing enhancements to the city's transit infrastructure.
+This report, therefore, not only furnishes a detailed account of the current state of subway delays but also sets the stage for strategic interventions and continuous improvements. The objective is to improve the subway system that is not just punctual and efficient but also resilient and responsive to the needs of a growing and dynamic Toronto.
+
 
 ## Appendix
 
 ### Rough Sketch about Brainstorming
 
-Please check the `/input/misc/Plan-Sketch.pdf` for my sketch of my brainstorming steps. This document contains a rough sketch including a sample data set and an example of plot that can be useful to answer the research questions.
+For a visual depiction of the brainstorming process and the initial ideas that shaped this study, please refer to the document located at `inputs/misc/Plan-Sketch.pdf`. This sketch includes preliminary thoughts on the data structure and one potential approach to address the research questions.
 
 ### TTC Subway Map
 
-@fig-TTC-Subway-Map below shows the map of subway lines in Toronto from TTC [@TTC].
+@fig-TTC-Subway-Map illustrates the map of the TTC subway lines [@TTC], providing a geographical context to the analyzed data. The map offers a visual reference to understand the spatial distribution of the subway lines in relation to the reported delays.
 
 \newpage
 
@@ -224,25 +235,19 @@ knitr::include_graphics(here("inputs", "misc", "Toronto-Subway-Map.png"))
 
 ### Data Simulation 
 
-For details on the simulated data set creation, please check the script located at `Script/00-simulate-data_data.R`. This script generates a simulated data set consisting of 1000 entries, representing hypothetical subway delay instances for the year 2023. The data set is been saved to `\input\data\simulate_subway_data.csv`. The data set includes the following columns:
-
-- Date: The date of the delay, formatted as a date within the year 2023.
-- Day: The day of the week on which the delay occurred.
-- SubwayID: A unique identifier for the subway vehicle involved in the delay.
-- Time: The time of day when the delay took place, formatted as 'HH:MM'.
-- Delay_Durations: The length of the delay in minutes.
+The simulated dataset, designed to mirror the structure of the actual TTC subway delay data, can be found at `scripts/00-simulate-data_data.R`. This script meticulously generates a dataset of 1000 hypothetical delay instances, providing a sandbox environment for testing analytical methods. The dataset encompasses variables such as 'Date', 'Day', 'SubwayID', 'Time', and 'Delay_Durations', mimicking the real-world data structure.
 
 ### Download Data from OpenDataToronto
 
-For details about download the data set from OpenDataToronto, please check the script located at `Script/01_download_data.R`. This script retrieves the TTC Subway delay data for the year 2023 using the package called `opendatatoronto` [@rOpenDataToronto] and save to a file at `/inputs/data/subway_delay_data_2023.csv`.
+For details about download the data set from OpenDataToronto, please check the script located at `scripts/01_download_data.R`. This script retrieves the TTC Subway delay data for the year 2023 using the package called `opendatatoronto` [@rOpenDataToronto] and save to a file at `inputs/data/subway_delay_data_2023.csv`.
 
 ### Data Cleaning Process
 
-In preparing the data set for analysis, the data is been cleaned by removing all rows with 'na' for their 'Line' column, and their 'Line' column not in ["BD", "YU", "SHP", "SRT"] (the 4 subway lines in Toronto). This step ensures the accuracy and reliability of the subsequent analysis by excluding incomplete or irrelevant data points. For a detailed view of the cleaning procedure and the code used, please refer to the script located at `Script/02_cleanup_data.R` in the repository. The cleaned data set is saved to `/output/data/`
+Data cleaning is a critical step in ensuring the accuracy and reliability of the analysis. The detailed procedure and the R script used for data cleaning are available in `scripts/02_cleanup_data.R`. The script elucidates the steps taken to refine the dataset by filtering out incomplete records and focusing on relevant subway lines. The cleaned dataset is conveniently saved at `outputs/data/cleaned_subway_delay_data_2023.csv`, ready for in-depth analysis.
 
 ### Data Set Validity Testing
 
-Once the data set has been cleaned, its integrity can be validated by executing the script located at scripts/03-test-data-validity.R. This script performs three crucial checks to ensure the data set's accuracy and consistency:
+To affirm the integrity and consistency of the cleaned dataset, a series of validation tests are performed using the script `scripts/03-test-data-validity.R`. This script performs three crucial checks to ensure the data set's accuracy and consistency:
 
 1. Year Consistency: Verifies that all entries in the 'Date' column correspond to the year 2023.
 2. Minute Delay not Negative: Confirms that all values in the 'Min Delay' column are greater than or equal to zero, ensuring no negative delay times are recorded.
