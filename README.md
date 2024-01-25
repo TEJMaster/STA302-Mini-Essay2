@@ -8,18 +8,21 @@ In the creation of this project, OpenAI's ChatGPT was used to enhance the paragr
 
 The repository is organized as follows to ensure easy navigation and accessibility of the project components:
 
-- `inputs/data/`: This directory houses the dataset used in the project. The main dataset, `subway_delay_data_2023.csv`, sourced from OpenDataToronto, is stored here.
+- `inputs/data/`: This directory stores the dataset used in the project. The main dataset, `subway_delay_data_2023.csv`, sourced from OpenDataToronto, is stored here. 
+- `inputs/misc/`: This directory stores the miscellaneous components used as the input to this project. 
 
 - `outputs/`: This folder contains the main outputs of the project:
-  - The Quarto markdown file (`.qmd`) which includes the code, analysis, and narrative of the project.
-  - The generated PDF document that presents the findings and analysis in a comprehensive report format.
+  - `outputs/data/`: This directory contains the output of the cleaned dataset after the data cleaning process.
+  - `outputs/paper/`: This directory stores the report of the actual paper. 
+
+- `scripts/`: This folder contains some R scripts for this project. 
 
 ## How to Use This Repository
 
-1. **Data Exploration and Analysis**: Navigate to the `outputs/` directory to find the Quarto markdown file for a detailed walkthrough of the data analysis process.
+1. **Data Exploration and Analysis**: Navigate to the `outputs/paper` directory to find the Quarto markdown file for a detailed walkthrough of the data analysis process.
 
-2. **Viewing the Report**: The final report in PDF format can also be found in the `outputs/` directory, providing a summarized view of the insights and findings from the analysis.
+2. **Viewing the Report**: The final report in PDF format can also be found in the `outputs/paper` directory, providing a summarized view of the insights and findings from the analysis.
 
-3. **Dataset**: To access the raw data and any processed versions, check the `inputs/data/` directory.
+3. **Dataset**: To access the raw data, check the `inputs/data/` directory. To access the cleaned dataset, check the `outputs/data` directory.
 
 Feel free to explore the repository to better understand the TTC subway delays in 2023 and how they impact daily commuting in Toronto.
