@@ -242,3 +242,14 @@ ChatGPT: Based on the comprehensive analysis of the 2023 TTC subway delay data, 
 From an operational perspective, the data presented herein should prompt an extensive evaluation of current TTC practices. There is a clear opportunity for management to refine operational strategies, focusing on peak times that have been identified as hotspots for delays. Addressing the fundamental issues contributing to frequent delays could significantly enhance service reliability.
 
 The overarching aim is to elevate the level of service to one that not only meets the expectations for punctuality and efficiency but also fosters confidence among Toronto's commuters. By harnessing the insights from this analysis, there is potential to drive progressive changes within the TTC's subway operations, ultimately benefiting the broader public transportation network in Toronto. This study, therefore, not only sheds light on existing patterns of delay but also serves as a catalyst for ongoing enhancements to the city's transit infrastructure.
+
+Terry: help me revise this: ### Rough Sketch of the Idea
+
+ChatGPT: Please check the `/input/misc/Plan-Sketch.pdf` for my sketch of my brain storming for this project.
+ChatGPT
+Conceptual Outline
+For a visual representation of the preliminary ideas and brainstorming conducted for this project, please refer to the file located at /input/misc/Plan-Sketch.pdf. This document contains a rough sketch that outlines the initial concepts and thought processes that have shaped the direction of this project. It serves as a foundational overview, capturing the essence of the project's vision and strategy in its nascent stages.
+
+Terry: help me revise it: Please check the `/input/misc/Plan-Sketch.pdf` for my sketch of my brain storming. This document contains a rough sketch about the sample data set and an example of plot I can use for answer my research question using this data set.
+
+ChatGPT: For an insight into the conceptual framework and visual planning of this project, please review the sketch available at /input/misc/Plan-Sketch.pdf. This document presents a preliminary sketch that encapsulates the brainstorming process, including a representation of the sample dataset and illustrative examples of plots. These elements collectively aim to address the research questions posited by this study, offering a glimpse into the methodological approach and analytical direction pursued.
